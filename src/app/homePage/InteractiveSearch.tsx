@@ -2,12 +2,14 @@
 "use client";
 import { useState } from "react";
 
+type ModeType = "Buy" | "Rent" | "Sell";
+
 export default function InteractiveSearch() {
-  const [mode, setMode] = useState<"Buy" | "Rent" | "Sell">("Buy");
+  const [mode, setMode] = useState<ModeType>("Buy");
   const [location, setLocation] = useState("");
 
   const handleSearch = () => {
-    if (!location) {
+    if (!location.trim()) {
       alert("Please enter a location.");
       return;
     }
@@ -17,11 +19,11 @@ export default function InteractiveSearch() {
   return (
     <section className="max-w-2xl mx-auto w-full p-6 bg-gray-300 shadow rounded">
       <div className="flex gap-6 mb-3">
-        {["Buy", "Rent", "Sell"].map((item) => (
+        {(["Buy", "Rent", "Sell"] as ModeType[]).map((item) => (
           <button
             key={item}
             type="button"
-            onClick={() => setMode(item as any)}
+            onClick={() => setMode(item)}
             className={`
               pb-1 border-b-2 text-gray-700
               ${
